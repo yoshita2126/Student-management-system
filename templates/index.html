@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Student Management System</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:linear-gradient(to right,#141e30,#243b55);
+      min-height:100vh;
+      padding:20px;
+      color:white;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .title{
+      text-align:center;
+      font-size:40px;
+      margin-bottom:20px;
+      font-weight:bold;
+    }
+
+    .top-links{
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .top-links a{
+      text-decoration:none;
+      margin:0 15px;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .signup-link{
+      color:#00e676;
+    }
+
+    .forgot-link{
+      color:#ffca28;
+    }
+
+    .card{
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(10px);
+      padding:25px;
+      border-radius:15px;
+      margin-bottom:25px;
+      box-shadow:0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    h2{
+      margin-bottom:20px;
+    }
+
+    input{
+      width:100%;
+      padding:12px;
+      margin-bottom:15px;
+      border:none;
+      border-radius:10px;
+      outline:none;
+      font-size:16px;
+    }
+
+    button{
+      padding:12px 20px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      transition:0.3s;
+      margin-top:5px;
+      margin-right:10px;
+    }
+
+    button:hover{
+      opacity:0.8;
+    }
+
+    .login-btn{
+      background:#00c853;
+      color:white;
+    }
+
+    .create-btn{
+      background:#2962ff;
+      color:white;
+    }
+
+    .get-btn{
+      background:#ff9800;
+      color:white;
+    }
+
+    .delete-btn{
+      background:#d50000;
+      color:white;
+    }
+
+    .status{
+      margin-top:15px;
+      font-weight:bold;
+      color:#00ff95;
+    }
+
+    .role-box{
+      margin-top:15px;
+      color:#00e5ff;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .student-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+
+    .student-card{
+      background:rgba(255,255,255,0.15);
+      padding:20px;
+      border-radius:15px;
+    }
+
+    .student-card h3{
+      color:#00e5ff;
+      margin-bottom:10px;
+    }
+
+    @media(max-width:768px){
+
+      .title{
+        font-size:28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="title">
+      Student Management System
+    </div>
+
+    <!-- LINKS -->
+    <div class="top-links">
+
+      <a
+        href="/signup"
+        class="signup-link"
+      >
+        Register
+      </a>
+
+      <a
+        href="/forgot-password"
+        class="forgot-link"
+      >
+        Forgot Password?
+      </a>
+
+    </div>
+
+    <!-- LOGIN -->
+    <div class="card">
+
+      <h2>Login</h2>
+
+      <input
+        type="text"
+        id="username"
+        placeholder="Enter Username or Email"
+      />
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+      />
+
+      <button
+        class="login-btn"
+        onclick="loginUser()"
+      >
+        Login
+      </button>
+
+      <div
+        class="status"
+        id="loginStatus"
+      ></div>
+
+      <div
+        class="role-box"
+        id="roleBox"
+      ></div>
+
+    </div>
+
+    <!-- CREATE STUDENT -->
+    <div class="card">
+
+      <h2>Create Student</h2>
+
+      <input
+        type="number"
+        id="studentId"
+        placeholder="Student ID"
+      />
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Student Name"
+      />
+
+      <input
+        type="text"
+        id="branch"
+        placeholder="Branch"
+      />
+
+      <input
+        type="number"
+        id="age"
+        placeholder="Age"
+      />
+
+      <input
+        type="number"
+        id="marks"
+        placeholder="Marks"
+      />
+
+      <button
+        class="create-btn"
+        onclick="createStudent()"
+      >
+        Create Student
+      </button>
+
+      <div
+        class="status"
+        id="createStatus"
+      ></div>
+
+    </div>
+
+    <!-- GET STUDENTS -->
+    <div class="card">
+
+      <h2>All Students</h2>
+
+      <button
+        class="get-btn"
+        onclick="getStudents()"
+      >
+        Get Students
+      </button>
+
+      <div
+        class="student-grid"
+        id="studentsContainer"
+      ></div>
+
+    </div>
+
+    <!-- PATCH STUDENT -->
+    <div class="card">
+
+      <h2>Patch Student</h2>
+
+      <input
+        type="number"
+        id="patchStudentId"
+        placeholder="Student ID"
+      />
+
+      <input
+        type="text"
+        id="patchName"
+        placeholder="Name"
+      />
+
+      <input
+        type="text"
+        id="patchBranch"
+        placeholder="Branch"
+      />
+
+      <input
+        type="number"
+        id="patchAge"
+        placeholder="Age"
+      />
+
+      <input
+        type="number"
+        id="patchMarks"
+        placeholder="Marks"
+      />
+
+      <button
+        class="create-btn"
+        onclick="patchStudent()"
+      >
+        Patch Student
+      </button>
+
+      <div
+        class="status"
+        id="patchStatus"
+      ></div>
+
+    </div>
+
+    <!-- DELETE -->
+    <div class="card">
+
+      <h2>Delete Student</h2>
+
+      <input
+        type="number"
+        id="deleteId"
+        placeholder="Student ID"
+      />
+
+      <button
+        class="delete-btn"
+        onclick="deleteStudent()"
+      >
+        Delete Student
+      </button>
+
+      <div
+        class="status"
+        id="deleteStatus"
+      ></div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    const BASE_URL = "http://127.0.0.1:8000";
+
+    let accessToken = "";
+
+    // =========================
+    // LOGIN
+    // =========================
+    async function loginUser(){
+
+      const username =
+        document.getElementById("username").value;
+
+      const password =
+        document.getElementById("password").value;
+
+      const formData = new FormData();
+
+      formData.append("username", username);
+      formData.append("password", password);
+
+      const response = await fetch(
+        `${BASE_URL}/login`,
+        {
+          method:"POST",
+          body:formData
+        }
+      );
+
+      const data = await response.json();
+
+      if(response.ok){
+
+        accessToken = data.access_token;
+
+        const payload = JSON.parse(
+          atob(accessToken.split('.')[1])
+        );
+
+        document.getElementById("loginStatus").innerHTML =
+          "Login Successful";
+
+        document.getElementById("roleBox").innerHTML =
+          `Logged in as: ${payload.role}`;
+
+      }else{
+
+        document.getElementById("loginStatus").innerHTML =
+          data.detail;
+
+      }
+
+    }
+
+    // =========================
+    // GET STUDENTS
+    // =========================
+    async function getStudents(){
+
+      const response = await fetch(
+        `${BASE_URL}/students`,
+        {
+          method:"GET",
+          headers:{
+            "Authorization":`Bearer ${accessToken}`
+          }
+        }
+      );
+
+      const data = await response.json();
+
+      const container =
+        document.getElementById("studentsContainer");
+
+      container.innerHTML = "";
+
+      if(response.ok){
+
+        const students =
+          Array.isArray(data)
+          ? data
+          : data.students || [];
+
+        students.forEach((s)=>{
+
+          container.innerHTML += `
+            <div class="student-card">
+
+              <h3>${s.name}</h3>
+
+              <p><strong>ID:</strong> ${s.id}</p>
+
+              <p><strong>Branch:</strong> ${s.branch}</p>
+
+              <p><strong>Age:</strong> ${s.age}</p>
+
+              <p><strong>Marks:</strong> ${s.marks}</p>
+
+            </div>
+          `;
+
+        });
+
+      }else{
+
+        container.innerHTML =
+          `<h3>${data.detail}</h3>`;
+
+      }
+
+    }
+
+    // =========================
+    // CREATE STUDENT
+    // =========================
+    async function createStudent(){
+
+      const studentId =
+        document.getElementById("studentId").value;
+
+      const studentData = {
+
+        name:
+          document.getElementById("name").value,
+
+        branch:
+          document.getElementById("branch").value,
+
+        age:
+          parseInt(
+            document.getElementById("age").value
+          ),
+
+        marks:
+          parseInt(
+            document.getElementById("marks").value
+          )
+
+      };
+
+      const response = await fetch(
+        `${BASE_URL}/students/${studentId}`,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${accessToken}`
+          },
+
+          body:JSON.stringify(studentData)
+        }
+      );
+
+      const data = await response.json();
+
+      if(response.ok){
+
+        document.getElementById("createStatus").innerHTML =
+          "Student Created Successfully";
+
+      }else{
+
+        document.getElementById("createStatus").innerHTML =
+          data.detail;
+
+      }
+
+    }
+
+    // =========================
+    // PATCH STUDENT
+    // =========================
+    async function patchStudent(){
+
+      const studentId =
+        document.getElementById("patchStudentId").value;
+
+      const patchData = {};
+
+      const name =
+        document.getElementById("patchName").value;
+
+      const branch =
+        document.getElementById("patchBranch").value;
+
+      const age =
+        document.getElementById("patchAge").value;
+
+      const marks =
+        document.getElementById("patchMarks").value;
+
+      if(name !== ""){
+        patchData.name = name;
+      }
+
+      if(branch !== ""){
+        patchData.branch = branch;
+      }
+
+      if(age !== ""){
+        patchData.age = parseInt(age);
+      }
+
+      if(marks !== ""){
+        patchData.marks = parseInt(marks);
+      }
+
+      const response = await fetch(
+        `${BASE_URL}/students/${studentId}`,
+        {
+          method:"PATCH",
+
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":`Bearer ${accessToken}`
+          },
+
+          body:JSON.stringify(patchData)
+        }
+      );
+
+      const data = await response.json();
+
+      if(response.ok){
+
+        document.getElementById("patchStatus").innerHTML =
+          "Student Updated Successfully";
+
+      }else{
+
+        document.getElementById("patchStatus").innerHTML =
+          data.detail;
+
+      }
+
+    }
+
+    // =========================
+    // DELETE STUDENT
+    // =========================
+    async function deleteStudent(){
+
+      const studentId =
+        document.getElementById("deleteId").value;
+
+      const response = await fetch(
+        `${BASE_URL}/students/${studentId}`,
+        {
+          method:"DELETE",
+
+          headers:{
+            "Authorization":`Bearer ${accessToken}`
+          }
+        }
+      );
+
+      const data = await response.json();
+
+      if(response.ok){
+
+        document.getElementById("deleteStatus").innerHTML =
+          "Student Deleted Successfully";
+
+      }else{
+
+        document.getElementById("deleteStatus").innerHTML =
+          data.detail;
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>

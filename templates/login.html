@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Student Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      padding: 45px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .logo-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      color: #2c3e50;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      color: #34495e;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+      color: #2c3e50;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #3498db;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+
+    input::placeholder {
+      color: #bdc3c7;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .login-btn:active {
+      transform: translateY(0);
+    }
+
+    .login-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status.success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      display: block;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      display: block;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #ecf0f1;
+    }
+
+    .links a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 13px;
+      display: inline-block;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .links a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    .divider {
+      text-align: center;
+      color: #bdc3c7;
+      font-size: 12px;
+      margin: 0 10px;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px 25px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .logo-icon {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="logo-icon">📚</div>
+        <h1 class="title">Welcome Back</h1>
+        <p class="subtitle">Login to your account</p>
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="loginUsername">Username or Email</label>
+          <input 
+            type="text" 
+            id="loginUsername" 
+            placeholder="Enter your username or email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input 
+            type="password" 
+            id="loginPassword" 
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="button" class="login-btn" onclick="loginUser()">Login</button>
+        <div class="status" id="loginStatus"></div>
+      </form>
+
+      <div class="links">
+        <a href="/signup">Create Account</a>
+        <span class="divider">•</span>
+        <a href="/forgot-password">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BASE_URL = "http://127.0.0.1:8000";
+
+    async function loginUser() {
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const statusEl = document.getElementById('loginStatus');
+
+      if (!username || !password) {
+        showStatus('loginStatus', '⚠️ Please fill in all fields', 'error');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('username', username);
+      formData.append('password', password);
+
+      try {
+        const response = await fetch(`${BASE_URL}/login`, {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showStatus('loginStatus', '✓ Login successful! Redirecting...', 'success');
+          setTimeout(() => {
+            window.location.href = '/dashboard?token=' + data.access_token;
+          }, 1200);
+        } else {
+          showStatus('loginStatus', '✗ ' + (data.detail || 'Login failed'), 'error');
+        }
+      } catch (error) {
+        showStatus('loginStatus', '✗ Connection error. Please try again.', 'error');
+      }
+    }
+
+    function showStatus(elementId, message, type) {
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.className = `status ${type}`;
+    }
+
+    document.getElementById('loginForm').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') loginUser();
+    });
+  </script>
+</body>
+</html>

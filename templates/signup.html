@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account - Student Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      padding: 45px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .logo-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      color: #2c3e50;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      color: #34495e;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #ecf0f1;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+      color: #2c3e50;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    input::placeholder {
+      color: #bdc3c7;
+    }
+
+    select option {
+      background: white;
+      color: #2c3e50;
+    }
+
+    .register-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .register-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .register-btn:active {
+      transform: translateY(0);
+    }
+
+    .register-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .links {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #ecf0f1;
+    }
+
+    .links a {
+      color: #667eea;
+      text-decoration: none;
+      font-size: 13px;
+      display: inline-block;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .links a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    .divider {
+      text-align: center;
+      color: #bdc3c7;
+      font-size: 12px;
+      margin: 0 10px;
+    }
+
+    .status {
+      margin-top: 20px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status.success {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      display: block;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      display: block;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px 25px;
+      }
+
+      .title {
+        font-size: 24px;
+      }
+
+      .logo-icon {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="logo-icon">✍️</div>
+        <h1 class="title">Create Account</h1>
+        <p class="subtitle">Join our student management system</p>
+      </div>
+
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="/signup" id="signupForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Choose a unique username"
+            required
+            minlength="3"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter a strong password"
+            required
+            minlength="6"
+          />
+          <small style="color: #95a5a6; margin-top: 5px; display: block;">Min. 6 characters recommended</small>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Account Type</label>
+          <select name="role" id="role" required>
+            <option value="">-- Select Account Type --</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <button type="submit" class="register-btn">Create Account</button>
+        <div class="status" id="signupStatus"></div>
+      </form>
+
+      <div class="links">
+        <a href="/login">Already have an account?</a>
+        <span class="divider">•</span>
+        <a href="/forgot-password">Forgot Password?</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      const password = document.getElementById('password').value;
+      const username = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (username.length < 3) {
+        e.preventDefault();
+        showStatus('Username must be at least 3 characters', 'error');
+        return;
+      }
+
+      if (password.length < 6) {
+        e.preventDefault();
+        showStatus('Password must be at least 6 characters', 'error');
+        return;
+      }
+    });
+
+    function showStatus(message, type) {
+      const element = document.getElementById('signupStatus');
+      element.textContent = message;
+      element.className = `status ${type}`;
+    }
+  </script>
+</body>
+</html>
